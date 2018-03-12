@@ -33,21 +33,18 @@ public class Pedido {
 
 	private long codigoCliente;
 
-	private double valorTotal ;
+	private double valorTotal;
 
 	public Pedido() {
-	
+
 	}
-	
-	public Pedido(long numeroControle,  String nome, double valor,
-			long codigoCliente) {
+
+	public Pedido(long numeroControle, String nome, double valor, long codigoCliente) {
 		this.numeroControle = numeroControle;
 		this.nome = nome;
 		this.valor = valor;
 		this.codigoCliente = codigoCliente;
 	}
-
-
 
 	public long getNumeroControle() {
 		return numeroControle;

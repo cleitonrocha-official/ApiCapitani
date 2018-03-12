@@ -1,4 +1,4 @@
-package com.capitani.teste.util;
+package com.capitani.teste.entities;
 
 import java.util.ArrayList;
 import java.util.List;

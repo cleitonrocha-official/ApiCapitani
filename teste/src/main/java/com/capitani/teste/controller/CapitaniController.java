@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capitani.teste.entities.Pedido;
+import com.capitani.teste.entities.Resposta;
 import com.capitani.teste.repository.PedidoRepository;
 import com.capitani.teste.util.LocalDateFormatter;
-import com.capitani.teste.util.Resposta;
 
 @Controller
 @RequestMapping(value = "pedidos", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }, consumes = {
@@ -41,24 +41,23 @@ public class CapitaniController {
 	@ResponseBody
 	public List<Pedido> consultaPorIdCliente(@PathVariable("codigoCliente") Long codigoCliente) {
 		return pedidoRepository.findbyCodClient(codigoCliente);
-		
+
 	}
-	
+
 	@GetMapping(value = "{numeroPedido}")
 	@ResponseBody
 	public Pedido consulta(@PathVariable("numeroPedido") Long numPedido) {
 		return pedidoRepository.findOne(numPedido);
 	}
 
-
 	@GetMapping("porData")
 	@ResponseBody
-	public List<Pedido> consulta(@RequestParam(value = "de", required = false ) String dataDe,
+	public List<Pedido> consulta(@RequestParam(value = "de", required = false) String dataDe,
 			@RequestParam(value = "ate", required = false) String dataAte) {
-		if(dataAte == null)
+		if (dataAte == null)
 			dataAte = LocalDateFormatter.maxDate();
-		
-		if(dataDe == null)
+
+		if (dataDe == null)
 			dataDe = LocalDateFormatter.minDate();
 		return pedidoRepository.consultaPorIntervaloDeDatas(dataDe, dataAte);
 

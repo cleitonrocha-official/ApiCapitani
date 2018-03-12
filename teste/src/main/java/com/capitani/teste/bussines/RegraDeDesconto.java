@@ -4,7 +4,6 @@ import com.capitani.teste.entities.Pedido;
 
 public abstract class RegraDeDesconto {
 
-	//Template Method
 	protected Pedido pedido;
 	
 	private RegraDeDesconto proximaDesconto;

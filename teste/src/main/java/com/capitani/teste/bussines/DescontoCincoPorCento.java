@@ -6,14 +6,13 @@ public class DescontoCincoPorCento extends RegraDeDesconto {
 
 	public DescontoCincoPorCento(Pedido pedido) {
 		super(pedido);
-		
-	}
 
+	}
 
 	@Override
 	public boolean temDesconto() {
-		return pedido.getQuantidade()>5 && pedido.getQuantidade()<10;
-		
+		return pedido.getQuantidade() > 5 && pedido.getQuantidade() < 10;
+
 	}
 
 	@Override

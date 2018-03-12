@@ -8,12 +8,10 @@ public class DescontoDezPorCento extends RegraDeDesconto {
 		super(pedido);
 	}
 
-
 	@Override
-	public
-	boolean temDesconto() {
-		return pedido.getQuantidade()>=10 ;
-		
+	public boolean temDesconto() {
+		return pedido.getQuantidade() >= 10;
+
 	}
 
 	@Override
