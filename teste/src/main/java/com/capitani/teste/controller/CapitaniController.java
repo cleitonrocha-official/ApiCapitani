@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capitani.teste.entities.Pedido;
 import com.capitani.teste.entities.Resposta;
+import com.capitani.teste.repository.ClienteRepository;
 import com.capitani.teste.repository.PedidoRepository;
 import com.capitani.teste.util.LocalDateFormatter;
 
@@ -27,13 +28,24 @@ public class CapitaniController {
 	@Autowired
 	PedidoRepository pedidoRepository;
 
+	@Autowired
+	ClienteRepository clienteRepository;
+
 	@PostMapping
 	@ResponseBody
 	public Resposta addPedidos(@RequestBody List<Pedido> pedidos) {
 		Resposta resposta = new Resposta();
+		try {
+		pedidos = clienteRepository.validaCliente(pedidos, resposta);
+		
+		if (pedidos.size() < 1)
+			return resposta;
 
 		return pedidos.size() > 10 ? resposta.addErro("Não pode ultrapassar 10 pedidos por requisição")
 				: pedidoRepository.salvarPedidosComRegrassDeDesconto(pedidos, resposta);
+		}catch (Exception e) {
+			return resposta.addErro("Verifique os dados enviados na requisição");
+		}
 
 	}
 

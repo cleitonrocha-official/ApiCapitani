@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +21,7 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
 	@Query("SELECT p FROM Pedido p where p.dataCadastro = :data")
 	List<Pedido> findByData(@Param("data") LocalDate data);
 
-	@Query("SELECT p FROM Pedido p where p.codigoCliente = :codigo")
+	@Query("SELECT p FROM Pedido p where p.cliente.codigoCliente = :codigo")
 	List<Pedido> findbyCodClient(@Param("codigo") long codigoCliente);
 
 	default void trySave(Resposta resposta, Pedido pedido) {

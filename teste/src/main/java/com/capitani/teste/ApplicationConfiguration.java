@@ -14,18 +14,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ApplicationConfiguration {
 
 	/*
-	 * Configuração do Bean de serialização e deserialização de
-	 * JSON e XML 
+	 * Configuração do Bean de serialização e deserialização de JSON e XML
 	 */
 	@Bean
 	public Jackson2ObjectMapperBuilder objctMapperBuilder() {
-		return new Jackson2ObjectMapperBuilder()
-		.deserializerByType(LocalDate.class, new JsonLocalDateDeserializer())
-		.serializerByType(LocalDate.class, new JsonLocalDateSerializer())
-		.serializationInclusion(Include.NON_NULL);
-		
-		
+		return new Jackson2ObjectMapperBuilder().deserializerByType(LocalDate.class, new JsonLocalDateDeserializer())
+				.serializerByType(LocalDate.class, new JsonLocalDateSerializer())
+				.serializationInclusion(Include.NON_NULL);
+
 	}
-	
-	
+
 }

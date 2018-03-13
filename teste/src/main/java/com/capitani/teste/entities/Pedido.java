@@ -4,14 +4,20 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.capitani.teste.util.ClienteDeserializer;
+import com.capitani.teste.util.ClienteSerializer;
 import com.capitani.teste.util.JsonLocalDateDeserializer;
 import com.capitani.teste.util.JsonLocalDateSerializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 @Entity
 @XmlRootElement
@@ -31,20 +37,28 @@ public class Pedido {
 
 	private long quantidade = 1;
 
-	private long codigoCliente;
+	@ManyToOne
+	@JoinColumn(name = "codigoCliente")
+	@JsonProperty("codigoCliente")
+	@JsonSerialize(using = ClienteSerializer.class)
+	@JsonDeserialize(using = ClienteDeserializer.class)
+	private Cliente cliente;
 
-	private double valorTotal;
+	private double valorTotal ;
 
 	public Pedido() {
-
+	
 	}
-
-	public Pedido(long numeroControle, String nome, double valor, long codigoCliente) {
+	
+	public Pedido(long numeroControle,  String nome, double valor,
+			long codigoCliente) {
 		this.numeroControle = numeroControle;
 		this.nome = nome;
 		this.valor = valor;
-		this.codigoCliente = codigoCliente;
+		this.cliente = new Cliente(codigoCliente, null);
 	}
+
+
 
 	public long getNumeroControle() {
 		return numeroControle;
@@ -86,14 +100,6 @@ public class Pedido {
 		this.quantidade = quantidade;
 	}
 
-	public long getCodigoCliente() {
-		return codigoCliente;
-	}
-
-	public void setCodigoCliente(long codigoCliente) {
-		this.codigoCliente = codigoCliente;
-	}
-
 	public double getValorTotal() {
 		return valorTotal;
 	}
@@ -102,4 +108,18 @@ public class Pedido {
 		this.valorTotal = valorTotal;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	@Override
+	public String toString() {
+		return "cliente = " + cliente.getCodigoCliente();
+	}
+	
+	
 }
